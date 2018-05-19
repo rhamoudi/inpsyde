@@ -1,0 +1,32 @@
+{
+  "name": "rhamoudi/inpsyde",
+  "version": "v1.0.0",
+  "minimum-stability": "dev",
+  "description": "A composer package, which serves the functionality working with WordPress Nonce.",
+  "homepage": "https://inpsyde.com",
+  "tags": ["WordPress Nonce", "WP Nonce", "Inpsyde"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Redouan Hamoudi",
+      "email": "r.hamoudi@hotmail.com",
+      "homepage": "https://inpsyde.com",
+      "role": "Developer"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rhamoudi/inpsyde"
+  },
+  "require": {
+    "php": ">=5.6.5 <7.2"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^5.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Inpsyde\\" : "Inpsyde/"
+    }
+  }
+}
