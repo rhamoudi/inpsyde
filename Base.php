@@ -47,6 +47,7 @@ class Base
                 $this->setNonce( $this->wp_create_nonce( $action_formatted ) );
                 break;
         }
+
     }
 
     /*
