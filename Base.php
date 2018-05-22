@@ -164,14 +164,7 @@ class Base
             }
         }
 
-        if( $this->getErrors() )
-        {
-
-            return false;
-
-        }
-
-        return true;
+        return $this->getErrors() !== false;
     }
 
 }

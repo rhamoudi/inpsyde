@@ -1,12 +1,15 @@
 # inpsyde
 
+---
 A composer package, which serves the functionality working with WordPress Nonce
 
 - [Installation](#installation)
 - [Requirements](#requirements)
 - [Quick start and examples](#quick-start-and-examples)
+- [Available Methods](#available-methods)
 
 ---
+
 ### Installation with composer
 
 This SDK uses composer.
@@ -32,3 +35,32 @@ $base->createNonce('test_nonce');
 $nonce_value = $base->getNonce();
 ```
 
+# Available Methods
+```php
+$base = new Base;
+
+$base->setNonce('test_nonce1')
+    ->setAction('test_nonce')
+    ->setErrors(true)
+    ->setErrorMessage('Your WordPress Nonce is not valid');
+```
+
+### Get Nonce
+```php
+    ->getNonce();
+```
+
+### Get Action
+```php
+    ->getAction();
+```
+
+### Get Errors
+```php
+    ->getErrors();
+```
+
+### Get ErrorMessage
+```php
+    ->getErrorMessage();
+```
