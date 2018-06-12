@@ -25,42 +25,36 @@ To install the package into your project, simply
 
 ### Requirements
 
-Php versions 5.6 and newer.
+Php versions 7.0 and newer.
 
 ### Quick start and examples
 
 ```php
-$base = new Base;
-$base->createNonce('test_nonce');
-$nonce_value = $base->getNonce();
+$context = new WPNonceContext;
+$nonce_value = $context->createNonce('test_nonce');
 ```
 
 # Available Methods
 ```php
-$base = new Base;
+$context = new WPNonceContext;
 
-$base->setNonce('test_nonce1')
-    ->setAction('test_nonce')
-    ->setErrors(true)
-    ->setErrorMessage('Your WordPress Nonce is not valid');
-```
-
-### Get Nonce
-```php
-    ->getNonce();
+$context->createNonce('test_nonce1')
+    ->changeAction('test_nonce')
+    ->changeErrors(true)
+    ->errorMessage('Your WordPress Nonce is not valid');
 ```
 
 ### Get Action
 ```php
-    ->getAction();
+    ->action();
 ```
 
 ### Get Errors
 ```php
-    ->getErrors();
+    ->errors();
 ```
 
 ### Get ErrorMessage
 ```php
-    ->getErrorMessage();
+    ->errorMessage();
 ```

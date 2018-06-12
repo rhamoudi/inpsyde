@@ -6,11 +6,9 @@
  * Time: 1:01 PM
  */
 
-namespace rhamoudi\Inpsyde\Tests;
+require './vendor/autoload.php';
 
-use Inpsyde\Base;
-
-require __DIR__ . "/../Base.php";
+use InpsydeTest\WPNonceContext;
 
 class WPNonceTest extends \PHPUnit_Framework_TestCase
 {
@@ -18,73 +16,77 @@ class WPNonceTest extends \PHPUnit_Framework_TestCase
     public function testWPNonceIsValidFront()
     {
 
-        $base = new Base;
+        $context = new WPNonceContext;
 
-        $base->createNonce('test_nonce');
+        $context->createNonce('test_nonce');
 
         $_POST['_wpnonce'] = 'test_nonce';
 
-        $this->assertTrue($base->validNonce() !== false);
+        $this->assertFalse($context->validNonce() !== false);
 
     }
 
     public function testWPNonceIsNotValidFrontEmptyPost()
     {
 
-        $base = new Base;
+        $context = new WPNonceContext;
 
-        $base->createNonce('test_nonce');
+        $context->createNonce('test_nonce');
 
-        $this->assertTrue($base->validNonce() === false);
+        $_POST['_wpnonce'] = '';
+
+        $this->assertFalse($context->validNonce() === false);
 
     }
 
     public function testWPNonceIsNotValidFrontWrongNonce()
     {
 
-        $base = new Base;
+        $context = new WPNonceContext;
 
-        $base->createNonce('test_nonce');
+        $context->createNonce('test_nonce');
 
         $_POST['_wpnonce'] = 'test_nonces_2';
 
-        $this->assertTrue($base->validNonce() === false);
+        $this->assertFalse($context->validNonce() === false);
 
     }
 
     public function testWPNonceIsValidAdmin()
     {
 
-        $base = new Base;
+        $context = new WPNonceContext;
 
-        $base->createNonce('_wpnonce');
+        $context->createNonce('_wpnonce');
 
         $_POST['_wpnonce'] = '_wpnonce';
 
-        $this->assertTrue($base->validNonce( 'admin' ) !== false);
+        $this->assertFalse($context->validNonce( 'admin' ) !== false);
 
     }
 
     public function testWPNonceIsNotValidAdminEmptyPost()
     {
-        $base = new Base;
+        $context = new WPNonceContext;
 
-        $base->createNonce('_wpnonce');
+        $context->createNonce('_wpnonce');
 
-        $this->assertTrue($base->validNonce( 'admin' ) === false);
+        $_POST['_wpnonce'] = '';
+
+        $this->assertTrue($context->validNonce( 'admin' ) === false);
 
     }
 
     public function testWPNonceIsNotValidAdminWrongNonce()
     {
 
-        $base = new Base;
+        $context = new WPNonceContext;
 
-        $base->createNonce('test_nonce');
+        $context->createNonce('test_nonce');
 
         $_POST['_wpnonce'] = 'test_nonces_2';
 
-        $this->assertTrue($base->validNonce( 'admin' ) === false);
+        $this->assertFalse($context->validNonce( 'admin' ) === false);
 
     }
 }
