@@ -5,13 +5,17 @@
  * User: Anissa
  * Date: 12.06.2018
  * Time: 14:17
+ * PHP Version: 7
  */
 
 namespace InpsydeTest;
 
+/**
+ * WP Nonce Strategy Type
+ */
 class WPNonceURL implements WPNonceInterface
 {
-    /**
+    /*
      * @var string
      */
     protected $action; //Type casting not supported in 7.0
@@ -19,7 +23,9 @@ class WPNonceURL implements WPNonceInterface
     /**
      * Set the wp nonce action
      *
-     * @param string $action
+     * @param string $action action identifier
+     *
+     * @return void
      */
     public function changeAction(string $action)
     {
@@ -39,17 +45,18 @@ class WPNonceURL implements WPNonceInterface
     /**
      * Create a wp nonce and returns it's value
      *
-     * @param string $action
-     * @param int $id
-     * @param string $url
+     * @param string $action action identifier
+     * @param int $id optional id
+     * @param string $url optional url
+     *
      * @return string
      */
     public function createNonce(string $action, int $id, string $url): string
     {
         $actionFormatted = $id === 0 ? $action : $action.'_'.$id;
 
-        $this->changeAction($actionFormatted);
+        $this->changeAction($action);
 
-        return 'URL formatted nonce';
+        return 'URL formatted nonce: '.$actionFormatted;
     }
 }

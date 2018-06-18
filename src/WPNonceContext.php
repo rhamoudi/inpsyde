@@ -4,19 +4,27 @@
  * User: Anissa
  * Date: 12.06.2018
  * Time: 12:27
+ * PHP Version: 7
  */
 
 namespace InpsydeTest;
 
+/**
+ * Class WPNonceContext
+ */
 class WPNonceContext
 {
-    private $strategy = null;
+    protected $strategy = null;
     protected $errors = false;
     protected $errorMessage;
 
     /**
      * WPNonceContext constructor.
+     * Create a strategy based on the chosen type
+     *
      * @param string $type the wp nonce type
+     *
+     * @return void
      */
     public function __construct(string $type = '')
     {
@@ -34,6 +42,8 @@ class WPNonceContext
     }
 
     /**
+     * Return the wp nonce action
+     *
      * @return string
      */
     public function action(): string
@@ -42,7 +52,11 @@ class WPNonceContext
     }
 
     /**
+     * Change the wp nonce action identifier
+     *
      * @param string $action
+     *
+     * @return void
      */
     public function changeAction(string $action)
     {
@@ -55,6 +69,7 @@ class WPNonceContext
      * @param string $action the wp nonce action
      * @param int $id an optional wp nonce id
      * @param string $url when the type is an url this must be set too
+     *
      * @return string
      */
     public function createNonce(string $action, int $id = 0, string $url = '') : string
@@ -65,8 +80,9 @@ class WPNonceContext
     /**
      * Just a mock to verify wether the wp_nonce and nonce action are the same
      *
-     * @param $wp_nonce
-     * @param $action
+     * @param string $wp_nonce the nonce value
+     * @param string $action the wp nonce action
+     *
      * @return bool
      */
     public function wpVerifyNonce($wp_nonce, $action) : bool
@@ -87,8 +103,15 @@ class WPNonceContext
     }
 
     /**
-     * I put the validation inside the context because it is the same for the other nonce classes. If atleast one of the nonce class would use a different validation method, we can then implement an interface method to validate each nonce class accordingly
-     * @param string $type a string that represents wether the validation check should happen on the frontend or backend (wp-admin area)
+     * I put the validation inside the context because it
+     * is the same for the other nonce classes.
+     * If atleast one of the nonce class would use a
+     * different validation method, we can then implement an
+     * interface method to validate each nonce class accordingly
+     *
+     * @param string $type a string that represents wether the
+     * validation check should happen on the frontend or backend (wp-admin area)
+     *
      * @return boolean
      */
     public function validNonce($type = 'front') : bool
@@ -97,27 +120,37 @@ class WPNonceContext
         $nonce = $_POST['_wpnonce']; // Not sanitizing for this test case
 
         /*
-         * If it's not the a front area call it must be inside the WP administration area
+         * If it's not the a front area call it
+         * must be inside the WP administration area
          */
         if ($type === 'front') {
+
+
+
             if (! isset($nonce)
-                || ! $this->wpVerifyNonce($nonce, $this->action())  ) {
+                || ! $this->wpVerifyNonce($nonce, $this->action())
+            ) {
                 $this->changeErrors(true);
                 $this->changeErrorMessage($errorMessage);
             }
         } elseif($type === 'admin') {
             if (empty($_POST)
-                || ! $this->checkAdminReferer($this->Action(), '_wpnonce') ) {
+                || ! $this->checkAdminReferer($this->Action(), '_wpnonce')
+            ) {
                 $this->changeErrors(true);
                 $this->changeErrorMessage($errorMessage);
             }
         }
 
-        return $this->errors() !== false;
+        return $this->errors() === false;
     }
 
     /**
-     * @param $errors
+     * Change wether there are errors or not
+     *
+     * @param bool $errors boolean to set errors
+     *
+     * @return void
      */
     public function changeErrors(bool $errors)
     {
@@ -125,7 +158,11 @@ class WPNonceContext
     }
 
     /**
-     * @param string $errorMessage
+     * Change the error message
+     *
+     * @param string $errorMessage the error message
+     *
+     * @return void
      */
     public function changeErrorMessage(string $errorMessage)
     {
@@ -133,6 +170,8 @@ class WPNonceContext
     }
 
     /**
+     * Return wether there are errors or not
+     *
      * @return boolean
      */
     public function errors() : bool
@@ -141,6 +180,8 @@ class WPNonceContext
     }
 
     /**
+     * Return the error message
+     *
      * @return string
      */
     public function errorMessage() : string

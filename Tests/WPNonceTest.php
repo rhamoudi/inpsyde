@@ -4,12 +4,16 @@
  * User: rhamo
  * Date: 5/19/2018
  * Time: 1:01 PM
+ * PHP Version: 7
  */
 
 require './vendor/autoload.php';
 
 use InpsydeTest\WPNonceContext;
 
+/**
+ * Class WPNonceTest
+ */
 class WPNonceTest extends \PHPUnit_Framework_TestCase
 {
 
@@ -22,7 +26,7 @@ class WPNonceTest extends \PHPUnit_Framework_TestCase
 
         $_POST['_wpnonce'] = 'test_nonce';
 
-        $this->assertFalse($context->validNonce() !== false);
+        $this->assertTrue($context->validNonce());
 
     }
 
@@ -35,7 +39,7 @@ class WPNonceTest extends \PHPUnit_Framework_TestCase
 
         $_POST['_wpnonce'] = '';
 
-        $this->assertFalse($context->validNonce() === false);
+        $this->assertFalse($context->validNonce());
 
     }
 
@@ -48,7 +52,7 @@ class WPNonceTest extends \PHPUnit_Framework_TestCase
 
         $_POST['_wpnonce'] = 'test_nonces_2';
 
-        $this->assertFalse($context->validNonce() === false);
+        $this->assertFalse($context->validNonce());
 
     }
 
@@ -61,7 +65,7 @@ class WPNonceTest extends \PHPUnit_Framework_TestCase
 
         $_POST['_wpnonce'] = '_wpnonce';
 
-        $this->assertFalse($context->validNonce( 'admin' ) !== false);
+        $this->assertTrue($context->validNonce( 'admin' ));
 
     }
 
@@ -73,7 +77,7 @@ class WPNonceTest extends \PHPUnit_Framework_TestCase
 
         $_POST['_wpnonce'] = '';
 
-        $this->assertTrue($context->validNonce( 'admin' ) === false);
+        $this->assertTrue($context->validNonce( 'admin' ));
 
     }
 
@@ -86,7 +90,7 @@ class WPNonceTest extends \PHPUnit_Framework_TestCase
 
         $_POST['_wpnonce'] = 'test_nonces_2';
 
-        $this->assertFalse($context->validNonce( 'admin' ) === false);
+        $this->assertFalse($context->validNonce( 'admin' ));
 
     }
 }
