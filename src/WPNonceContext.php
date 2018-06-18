@@ -93,8 +93,9 @@ class WPNonceContext
     /**
      * Just a mock to verify wether the wp_nonce and nonce action are the same
      *
-     * @param $action
-     * @param $wp_nonce
+     * @param string $action the wp nonce action
+     * @param string $wp_nonce the nonce value
+     *
      * @return bool
      */
     public function checkAdminReferer($action, $wp_nonce) : bool
@@ -117,25 +118,22 @@ class WPNonceContext
     public function validNonce($type = 'front') : bool
     {
         $errorMessage = 'Your WordPress Nonce is not valid.';
-        $nonce = $_POST['_wpnonce']; // Not sanitizing for this test case
+        $nonce = $_POST['_wpnonce'] ?? ''; // Not sanitizing for this test case
 
         /*
          * If it's not the a front area call it
          * must be inside the WP administration area
          */
         if ($type === 'front') {
-
-
-
-            if (! isset($nonce)
+            if (empty($nonce)
                 || ! $this->wpVerifyNonce($nonce, $this->action())
             ) {
                 $this->changeErrors(true);
                 $this->changeErrorMessage($errorMessage);
             }
         } elseif($type === 'admin') {
-            if (empty($_POST)
-                || ! $this->checkAdminReferer($this->Action(), '_wpnonce')
+            if (empty($nonce)
+                || ! $this->checkAdminReferer($this->action(), '_wpnonce')
             ) {
                 $this->changeErrors(true);
                 $this->changeErrorMessage($errorMessage);

@@ -75,9 +75,7 @@ class WPNonceTest extends \PHPUnit_Framework_TestCase
 
         $context->createNonce('_wpnonce');
 
-        $_POST['_wpnonce'] = '';
-
-        $this->assertTrue($context->validNonce( 'admin' ));
+        $this->assertFalse($context->validNonce( 'admin' ));
 
     }
 
