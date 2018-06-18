@@ -46,8 +46,8 @@ class WPNonceDefault implements WPNonceInterface
      * Create a wp nonce and returns it's value
      *
      * @param string $action action identifier
-     * @param int $id optional id
-     * @param string $url optional url
+     * @param int    $id     optional id
+     * @param string $url    optional url
      *
      * @return string
      */

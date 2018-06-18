@@ -29,15 +29,15 @@ class WPNonceContext
     public function __construct(string $type = '')
     {
         switch ($type) {
-            case 'URL':
+        case 'URL':
                 $this->strategy = new WPNonceURL();
-                break;
-            case 'FIELD':
+            break;
+        case 'FIELD':
                 $this->strategy = new WPNonceField();
-                break;
-            default:
+            break;
+        default:
                 $this->strategy = new WPNonceDefault();
-                break;
+            break;
         }
     }
 

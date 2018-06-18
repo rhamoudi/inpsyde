@@ -23,7 +23,9 @@ class WPNonceField implements WPNonceInterface
     /**
      * Set the wp nonce action
      *
-     * @param string $action
+     * @param string $action action identifier
+     *
+     * @return void
      */
     public function changeAction(string $action)
     {
@@ -44,8 +46,8 @@ class WPNonceField implements WPNonceInterface
      * Create a wp nonce and returns it's value
      *
      * @param string $action action identifier
-     * @param int $id optional id
-     * @param string $url optional url
+     * @param int    $id     optional id
+     * @param string $url    optional url
      *
      * @return string
      */
